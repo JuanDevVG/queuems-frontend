@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { LoginService } from '../service/login.service';
-import { LoginRequest } from '../model/loginRequest';
+import { LoginRequest } from '../interfaces/loginRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { LoginRequest } from '../model/loginRequest';
 })
 export class LoginComponent {
 
-  constructor(private formBuilder:FormBuilder, private loginService:LoginService){}
+  constructor(private formBuilder:FormBuilder, private loginService:LoginService, private router:Router){}
 
   loginError:string = "";
 
@@ -31,9 +32,8 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next: (userData) => {
-          console.log(userData);
-          
+        next: (token) => {
+          this.router.navigate(['/paciente']);
         },
         error: (errorData) => {
           console.log(errorData);
