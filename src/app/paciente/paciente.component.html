@@ -1,5 +1,9 @@
 @if (!userLoginOn) {
     <p>Iniciar sesion</p>
+    
 } @else {
-    <p>Cerrar sesion</p>
+    <input type="button" class="btn btn-warning" value="Cerrar sesion" (click)="logOut();">
+    <div>
+        <a routerLink="/paciente/turno" routerLinkActivate="active">Turno Paciente</a>
+    </div>
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import { LoginService } from '../service/login.service';
+import { AuthService } from '../service/auth.service';
 import { LoginRequest } from '../interfaces/loginRequest';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private formBuilder:FormBuilder, private loginService:LoginService, private router:Router){}
+  constructor(private formBuilder:FormBuilder, private authService:AuthService, private router:Router){}
 
   loginError:string = "";
 
@@ -31,8 +31,8 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next: (token) => {
+      this.authService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: () => {
           this.router.navigate(['/paciente']);
         },
         error: (errorData) => {
@@ -44,9 +44,9 @@ export class LoginComponent {
           this.loginForm.reset();
         }
       });
+      
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-
 }

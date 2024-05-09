@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoginService } from '../service/login.service';
+import { AuthService } from '../service/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-paciente',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './paciente.component.html',
   styleUrl: './paciente.component.css'
 })
@@ -12,20 +13,24 @@ export class PacienteComponent implements OnInit, OnDestroy {
     
   userLoginOn:boolean = false;
     
-  constructor(private loginService:LoginService){}
+  constructor(private authService:AuthService){}
 
   ngOnDestroy(): void {
-    this.loginService.token.unsubscribe();
-    this.loginService.currentUserLoginOn.unsubscribe();
+    this.authService.token.unsubscribe();
+    this.authService.isAuth.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
+    this.authService.isAuth.subscribe(
       {
         next:(userLoginOn) => {
           this.userLoginOn=userLoginOn;
         }
       }
     )
+  }
+
+  logOut(): void {
+    this.authService.logOut();
   }
 }
