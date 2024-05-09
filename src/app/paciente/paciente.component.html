@@ -2,8 +2,10 @@
     <p>Iniciar sesion</p>
     
 } @else {
-    <input type="button" class="btn btn-warning" value="Cerrar sesion" (click)="logOut();">
-    <div>
-        <a routerLink="/paciente/turno" routerLinkActivate="active">Turno Paciente</a>
+    <div class="container" style="margin: 2rem auto;">
+        <input type="button" class="btn btn-warning form-control" value="Cerrar sesion" (click)="logOut();">
+        <div>
+            <a routerLink="/paciente/turno" routerLinkActivate="active">Turno Paciente</a>
+        </div>
     </div>
 }

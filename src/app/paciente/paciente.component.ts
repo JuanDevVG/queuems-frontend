@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-paciente',
@@ -12,22 +13,22 @@ import { RouterLink } from '@angular/router';
 export class PacienteComponent implements OnInit, OnDestroy {
     
   userLoginOn:boolean = false;
-    
+  isAuthSubscription: Subscription = new Subscription;
+
   constructor(private authService:AuthService){}
 
   ngOnDestroy(): void {
-    this.authService.token.unsubscribe();
-    this.authService.isAuth.unsubscribe();
+    // Desuscribirse cuando el componente se destruya
+    this.isAuthSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.authService.isAuth.subscribe(
-      {
-        next:(userLoginOn) => {
-          this.userLoginOn=userLoginOn;
-        }
+    // Suscribirse al observable isAuth y guardar la referencia a la suscripción
+    this.isAuthSubscription = this.authService.isAuth.subscribe(
+      (userLoginOn) => {
+        this.userLoginOn = userLoginOn;
       }
-    )
+    );
   }
 
   logOut(): void {

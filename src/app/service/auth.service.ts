@@ -28,9 +28,8 @@ export class AuthService {
     return this.http.post<string>('http://localhost:8080/auth/login', credentials).pipe(
       tap( (token:string) => {
         const tokenUser = JSON.stringify(token);
-        localStorage.setItem('token', tokenUser)
+        localStorage.setItem('token', tokenUser);
         this.setLoggedIn(true);
-        console.log("hola");
       }),
       catchError(this.handledError)
     )
