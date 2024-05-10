@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-paciente',
@@ -15,7 +16,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
   userLoginOn:boolean = false;
   isAuthSubscription: Subscription = new Subscription;
 
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService, private router:Router){}
 
   ngOnDestroy(): void {
     // Desuscribirse cuando el componente se destruya
@@ -32,6 +33,10 @@ export class PacienteComponent implements OnInit, OnDestroy {
   }
 
   logOut(): void {
-    this.authService.logOut();
+    this.authService.logOut().subscribe(
+      () => {
+        this.router.navigate([""]);        
+      }
+    );
   }
 }

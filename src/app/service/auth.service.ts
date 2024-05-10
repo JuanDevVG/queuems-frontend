@@ -36,10 +36,11 @@ export class AuthService {
 
   }
 
-  logOut():void {
+  logOut() {
     localStorage.removeItem('token');
     this.setLoggedIn(false);
-    this.router.navigate(['']);
+    
+    return this.http.get("/auth/logout");
   }
 
   private handledError(error:HttpErrorResponse){ 
