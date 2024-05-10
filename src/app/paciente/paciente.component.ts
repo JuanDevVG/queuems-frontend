@@ -33,10 +33,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
   }
 
   logOut(): void {
-    this.authService.logOut().subscribe(
-      () => {
-        this.router.navigate([""]);        
-      }
-    );
+    this.authService.logOut();
+    this.router.navigate([""]);
   }
 }
