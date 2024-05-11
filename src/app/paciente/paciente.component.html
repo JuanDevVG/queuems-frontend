@@ -1,11 +1,96 @@
-@if (!userLoginOn) {
-    <p>Iniciar sesion</p>
-    
-} @else {
-    <div class="container" style="margin: 2rem auto;">
-        <input type="button" class="btn btn-warning form-control" value="Cerrar sesion" (click)="logOut();">
-        <div>
-            <a routerLink="/paciente/turno" routerLinkActivate="active">Turno Paciente</a>
-        </div>
+<div class="container">
+    <div class="mt-3">
+        <input type="button" value="Cerrar Sesion" (click)="logOut()" class="btn btn-danger">
     </div>
-}
+    <div style="text-align: center; margin: 2rem auto;">
+        <h1>BIENVENIDO</h1>
+    </div>
+    <div>
+        <div>
+            <h2>Datos de paciente</h2>
+        </div>
+        <form [formGroup]="pacienteForm">
+            <div class="mb-3">
+                <label for="" class="form-label" >Tipo de documento: </label>
+                <select formControlName="tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control">
+                    <option value="">Seleccione</option>
+                    <option value="cedulaCiudadania">Cedula de Ciudadania</option>
+                    <option value="tarjetaIdentidad">Tarjeta de Identidad</option>
+                    <option value="cedulExtranjera">Cedula extranjera</option>
+                  </select>
+                  @if (tipoDocumento.invalid && (tipoDocumento.dirty || tipoDocumento.touched )) {
+                    <div class="text-danger">
+                        <div>El tipo de documento es requerido.</div>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Numero de documento</label>
+                <input formControlName="numeroDocumento" type="text" name="numeroDocumento" id="numeroDocumento" class="form-control">
+                @if (numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched )) {
+                    <div class="text-danger">
+                        <div>El tipo de numero de documento es requerido.</div>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Nombres: </label>
+                <input formControlName="nombres" type="text" name="name" id="name" class="form-control">
+                @if (nombres.invalid && (nombres.dirty || nombres.touched )) {
+                    <div class="text-danger">
+                        <div>El nombre es requerido.</div>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Apellidos: </label>
+                <input formControlName="apellidos" type="text" name="lastname" id="lastname" class="form-control">
+                @if (apellidos.invalid && (apellidos.dirty || apellidos.touched )) {
+                    <div class="text-danger">
+                        <div>El apellido es requerido.</div>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Tipo de servicio: </label>
+                <select formControlName="tipoServicio" name="tipoServicio" id="tipoServicio" class="form-control">
+                    <option value="">Seleccione</option>
+                    <option value="citaEspecialisa">Cita con especialista</option>
+                    <option value="citaEspecialisa">Programacion de cirugia</option>
+                </select>
+                @if (tipoServicio.invalid && (tipoServicio.dirty || tipoServicio.touched )) {
+                    <div class="text-danger">
+                        <div>El tipo de servicio es requerido.</div>
+                    </div>
+                }
+            </div>
+            <div style="margin: 1rem auto;" class="mb-3">
+                <p><span style="font-weight: bold;">Categoria</span><p>
+                <div class="categoria">
+                    <input type="radio" id="adultoMayor" formControlName="categoria" value="adultoMayor">
+                    <label for="adultoMayor" class="form-label">
+                        aultoMayor: 
+                        <img src="#" alt="Img Adulto Mayor">
+                    </label>
+                </div>
+                <div class="categoria">
+                    <input type="radio" id="embarazo" formControlName="categoria" value="embarazo">
+                    <label for="embarazo" class="form-label">
+                        Embarazo: 
+                        <img src="#" alt="Imagen Mujer Embarazo">
+                    </label>
+                </div>
+                <div class="categoria">
+                    <input type="radio" id="discapacidad" formControlName="categoria" value="discapacidad">
+                    <label for="discapacidad" class="form-label">
+                        Discapacidad: 
+                        <img src="#" alt="Imagen de persona con discapacidad">
+                    </label>
+                </div>
+            </div>
+            <div>
+                <input type="button" value="Generar Turno" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</div>
