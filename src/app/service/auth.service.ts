@@ -45,7 +45,7 @@ export class AuthService {
     return this.http.get("/auth/logout");
   }
 
-  private handledError(error:HttpErrorResponse){ 
+  public handledError(error:HttpErrorResponse){ 
 
     if (error.status===0) {
       console.error('se ha producido un error ', error.error);

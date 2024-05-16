@@ -3,6 +3,8 @@ import { AuthService } from '../service/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PacienteService } from './paciente.service';
+import { Paciente } from '../models/paciente.model';
 
 
 @Component({
@@ -48,7 +50,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
   formulario = JSON.stringify(this.pacienteForm.value);
         
 
-  constructor(private authService:AuthService, private router:Router, private formBuilder:FormBuilder){}
+  constructor(private authService:AuthService, private pacienteService:PacienteService, private router:Router, private formBuilder:FormBuilder){}
 
   ngOnDestroy(): void {
     // Desuscribirse cuando el componente se destruya
@@ -67,5 +69,18 @@ export class PacienteComponent implements OnInit, OnDestroy {
   logOut(): void {
     this.authService.logOut();
     this.router.navigate([""]);
+  }
+
+  getPacienteByIdentityCard() {
+      const numeroDocumento = this.pacienteForm.controls.numeroDocumento.value;
+      if ( numeroDocumento != null) {
+        this.pacienteService.getPacienteByIdentityCard(numeroDocumento).subscribe(
+          paciente => {
+            console.log(paciente);  
+            alert(paciente.identityCard);
+          }
+        );  
+      }
+      
   }
 }
