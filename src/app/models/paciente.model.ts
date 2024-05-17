@@ -1,17 +1,19 @@
+import { Categoria } from "./categoria.model";
+
 export class Paciente {
     id:number;
     identityCard:string;
     name:string;
     lastname:string;
-    category:string;
+    category:Categoria;
     active:boolean;
 
-    constructor(id:number, identityCard:string, name:string, lastname:string, category:string, active:boolean) {
-        this.id = id;
-        this.identityCard = identityCard;
-        this.name = name;
-        this.lastname = lastname;
-        this.category = category;
-        this.active  = active;
+    constructor() {
+        this.id = 0;
+        this.identityCard = '';
+        this.name = '';
+        this.lastname = '';
+        this.category = new Categoria();
+        this.active  = false;
     }
 }

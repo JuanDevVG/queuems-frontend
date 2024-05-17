@@ -92,5 +92,12 @@
                 <input type="button" value="Generar Turno" class="btn btn-success" (click)="getPacienteByIdentityCard()">
             </div>
         </form>
+        <div>
+            {{paciente.id}} <br>
+            {{paciente.identityCard}} <br>
+            {{paciente.name}} {{paciente.lastname}} <br>
+            {{paciente.category.categoryName}}
+
+        </div>
     </div>
 </div>

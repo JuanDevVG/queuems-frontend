@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PacienteService } from './paciente.service';
 import { Paciente } from '../models/paciente.model';
+import { Categoria } from '../models/categoria.model';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
     
   userLoginOn:boolean = false;
   isAuthSubscription: Subscription = new Subscription;
+  paciente:Paciente = new Paciente();
   
   pacienteForm = this.formBuilder.group({
     tipoDocumento:['', [Validators.required]],
@@ -74,12 +76,11 @@ export class PacienteComponent implements OnInit, OnDestroy {
   getPacienteByIdentityCard() {
       const numeroDocumento = this.pacienteForm.controls.numeroDocumento.value;
       if ( numeroDocumento != null) {
-        this.pacienteService.getPacienteByIdentityCard(numeroDocumento).subscribe(
-          paciente => {
-            console.log(paciente);  
-            alert(paciente.identityCard);
+        this.pacienteService.getPacienteByIdentityCard(numeroDocumento).subscribe({
+          next: (apiResponse) => {
+            this.paciente = apiResponse;
           }
-        );  
+      });  
       }
       
   }
