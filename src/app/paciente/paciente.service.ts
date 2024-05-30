@@ -4,6 +4,7 @@ import { Observable, map} from 'rxjs';
 import { Paciente } from '../models/paciente.model';
 import { AuthService } from '../service/auth.service';
 import { Categoria } from '../models/categoria.model';
+import { Servicio } from '../models/servicio.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,12 @@ export class PacienteService {
     const headers: HttpHeaders = this.getHeaders();
     return this.http.get<Categoria>(`http://localhost:8080/api/category/get`, { headers });
   }
+
+  getServicios(): Observable<any> {
+    const headers: HttpHeaders = this.getHeaders();
+    return this.http.get<Servicio>(`http://localhost:8080/api/service/get`, { headers });
+  }
+
 
   mapToPaciente(apiResponse: any): Paciente {
 

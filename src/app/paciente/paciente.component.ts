@@ -6,8 +6,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PacienteService } from './paciente.service';
 import { Paciente } from '../models/paciente.model';
 import { Categoria } from '../models/categoria.model';
-import { HttpResponse } from '@angular/common/http';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { TipoDocumento } from '../models/tipoDocumento';
+import { Servicio } from '../models/servicio.model';
 
 
 @Component({
@@ -26,6 +26,12 @@ export class PacienteComponent implements OnInit, OnDestroy {
   private identityInputChanges = new Subscription;
   paciente: Paciente = new Paciente();
   categorias: Categoria[] = [];
+  servicios: Servicio[] = [];
+  idTypes: TipoDocumento[] = [
+    {'name': 'tarjetaIdentidad', 'description': 'Tarjeta de Identidad'},
+    {'name': 'cedulaCiudadania', 'description': 'Cedula de Ciudadania'},
+    {'name': 'cedulaExtranjera', 'description': 'Cedula extranjera'}
+  ];
 
   pacienteForm = this.formBuilder.group({
 
@@ -85,6 +91,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
       });
 
     this.getCategorias();
+    this.getServicios();
 
   }
 
@@ -127,7 +134,8 @@ export class PacienteComponent implements OnInit, OnDestroy {
     this.pacienteForm.patchValue({
       name: "",
       lastname: "",
-      category: ""
+      category: "",
+      tipoServicio: ""
     })
   }
 
@@ -135,6 +143,13 @@ export class PacienteComponent implements OnInit, OnDestroy {
     this.pacienteService.getCategorias().subscribe(
       apiResponse => {
         this.categorias = apiResponse.newObject;
+      })
+  }
+
+  getServicios() {
+    this.pacienteService.getServicios().subscribe(
+      apiResponse => {
+        this.servicios = apiResponse;
       })
   }
 

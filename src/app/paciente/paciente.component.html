@@ -14,9 +14,9 @@
                 <label for="" class="form-label">Tipo de documento: </label>
                 <select formControlName="idType" name="tipoDocumento" id="tipoDocumento" class="form-control">
                     <option value="">Seleccione</option>
-                    <option value="cedulaCiudadania">Cedula de Ciudadania</option>
-                    <option value="tarjetaIdentidad">Tarjeta de Identidad</option>
-                    <option value="cedulExtranjera">Cedula extranjera</option>
+                    @for (idType of idTypes; track idType) {
+                        <option value="{{idType.name}}">{{idType.description}}</option>
+                    }
                 </select>
                 @if (tipoDocumento.invalid && (tipoDocumento.dirty || tipoDocumento.touched )) {
                 <div class="text-danger">
@@ -54,11 +54,14 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Tipo de servicio: </label>
+                
                 <select formControlName="tipoServicio" name="tipoServicio" id="tipoServicio" class="form-control">
                     <option value="">Seleccione</option>
-                    <option value="citaEspecialista">Cita con especialista</option>
-                    <option value="programacionCirugia">Programacion de cirugia</option>
+                    @for(servicio of servicios; track servicio.serviceId) {
+                    <option value="{{servicio.serviceType}}">{{servicio.serviceDescription}}</option>
+                    }
                 </select>
+                
                 @if (tipoServicio.invalid && (tipoServicio.dirty || tipoServicio.touched )) {
                 <div class="text-danger">
                     <div>El tipo de servicio es requerido.</div>
@@ -68,7 +71,7 @@
             <div style="margin: 1rem auto;" class="mb-3">
                 <p><span style="font-weight: bold;">Categoria</span><p>
                 @for(categoria of categorias; track categoria.categoryId) {
-                <div class="categoria" >
+                <div class="categoria">
                     <input type="radio" id="adultoMayor" formControlName="category" value="{{categoria.categoryName}}">
                     <label for="{{categoria.categoryName}}" class="form-label">
                         {{categoria.categoryDescription}}

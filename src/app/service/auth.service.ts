@@ -30,8 +30,6 @@ export class AuthService {
         const tokenUser = JSON.stringify(token);
         localStorage.setItem('token', tokenUser);
         this.setLoggedIn(true);
-        console.log("hola");
-        
       }),
       catchError(this.handledError)
     )
