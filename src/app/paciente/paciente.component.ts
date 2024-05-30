@@ -25,6 +25,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
   private typingDelay: number = 1000; // 3 segundos
   private identityInputChanges = new Subscription;
   paciente: Paciente = new Paciente();
+  categorias: Categoria[] = [];
 
   pacienteForm = this.formBuilder.group({
 
@@ -83,6 +84,8 @@ export class PacienteComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.getCategorias();
+
   }
 
   handleTyping(identityCard: string): void {
@@ -128,16 +131,23 @@ export class PacienteComponent implements OnInit, OnDestroy {
     })
   }
 
+  getCategorias() {
+    this.pacienteService.getCategorias().subscribe(
+      apiResponse => {
+        this.categorias = apiResponse.newObject;
+      })
+  }
+
   crearPaciente(): void {
 
     if (this.pacienteForm.valid) {
 
-      this.pacienteService.crearPaciente(this.pacienteForm.value as Paciente).subscribe({
+      /*this.pacienteService.crearPaciente(this.pacienteForm.value as Paciente).subscribe({
         next: (response: HttpResponse<any>) => {
           console.log(response.status);
           
         }
-      });
+      });*/
     }
   }
 

@@ -11,44 +11,45 @@
         </div>
         <form [formGroup]="pacienteForm">
             <div class="mb-3">
-                <label for="" class="form-label" >Tipo de documento: </label>
+                <label for="" class="form-label">Tipo de documento: </label>
                 <select formControlName="idType" name="tipoDocumento" id="tipoDocumento" class="form-control">
                     <option value="">Seleccione</option>
                     <option value="cedulaCiudadania">Cedula de Ciudadania</option>
                     <option value="tarjetaIdentidad">Tarjeta de Identidad</option>
                     <option value="cedulExtranjera">Cedula extranjera</option>
-                  </select>
-                  @if (tipoDocumento.invalid && (tipoDocumento.dirty || tipoDocumento.touched )) {
-                    <div class="text-danger">
-                        <div>El tipo de documento es requerido.</div>
-                    </div>
+                </select>
+                @if (tipoDocumento.invalid && (tipoDocumento.dirty || tipoDocumento.touched )) {
+                <div class="text-danger">
+                    <div>El tipo de documento es requerido.</div>
+                </div>
                 }
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Numero de documento</label>
-                <input formControlName="identityCard" type="text" name="numeroDocumento" id="numeroDocumento" class="form-control">
+                <input formControlName="identityCard" type="text" name="numeroDocumento" id="numeroDocumento"
+                    class="form-control">
                 @if (numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched )) {
-                    <div class="text-danger">
-                        <div>El tipo de numero de documento es requerido.</div>
-                    </div>
+                <div class="text-danger">
+                    <div>El tipo de numero de documento es requerido.</div>
+                </div>
                 }
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Nombres: </label>
                 <input formControlName="name" type="text" name="name" id="name" class="form-control">
                 @if (nombres.invalid && (nombres.dirty || nombres.touched )) {
-                    <div class="text-danger">
-                        <div>El nombre es requerido.</div>
-                    </div>
+                <div class="text-danger">
+                    <div>El nombre es requerido.</div>
+                </div>
                 }
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Apellidos: </label>
                 <input formControlName="lastname" type="text" name="lastname" id="lastname" class="form-control">
                 @if (apellidos.invalid && (apellidos.dirty || apellidos.touched )) {
-                    <div class="text-danger">
-                        <div>El apellido es requerido.</div>
-                    </div>
+                <div class="text-danger">
+                    <div>El apellido es requerido.</div>
+                </div>
                 }
             </div>
             <div class="mb-3">
@@ -59,34 +60,22 @@
                     <option value="programacionCirugia">Programacion de cirugia</option>
                 </select>
                 @if (tipoServicio.invalid && (tipoServicio.dirty || tipoServicio.touched )) {
-                    <div class="text-danger">
-                        <div>El tipo de servicio es requerido.</div>
-                    </div>
+                <div class="text-danger">
+                    <div>El tipo de servicio es requerido.</div>
+                </div>
                 }
             </div>
             <div style="margin: 1rem auto;" class="mb-3">
                 <p><span style="font-weight: bold;">Categoria</span><p>
-                <div class="categoria">
-                    <input type="radio" id="adultoMayor" formControlName="categoria" value="adultoMayor">
-                    <label for="adultoMayor" class="form-label">
-                        aultoMayor: 
+                @for(categoria of categorias; track categoria.categoryId) {
+                <div class="categoria" >
+                    <input type="radio" id="adultoMayor" formControlName="category" value="{{categoria.categoryName}}">
+                    <label for="{{categoria.categoryName}}" class="form-label">
+                        {{categoria.categoryDescription}}
                         <img src="#" alt="Img Adulto Mayor">
                     </label>
                 </div>
-                <div class="categoria">
-                    <input type="radio" id="embarazo" formControlName="categoria" value="embarazo">
-                    <label for="embarazo" class="form-label">
-                        Embarazo: 
-                        <img src="#" alt="Imagen Mujer Embarazo">
-                    </label>
-                </div>
-                <div class="categoria">
-                    <input type="radio" id="discapacidad" formControlName="categoria" value="discapacidad">
-                    <label for="discapacidad" class="form-label">
-                        Discapacidad: 
-                        <img src="#" alt="Imagen de persona con discapacidad">
-                    </label>
-                </div>
+                }
             </div>
             <div>
                 <input type="button" value="Generar Turno" class="btn btn-success" (click)="crearPaciente()">
