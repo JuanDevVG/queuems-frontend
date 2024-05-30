@@ -12,7 +12,7 @@
         <form [formGroup]="pacienteForm">
             <div class="mb-3">
                 <label for="" class="form-label" >Tipo de documento: </label>
-                <select formControlName="tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control">
+                <select formControlName="idType" name="tipoDocumento" id="tipoDocumento" class="form-control">
                     <option value="">Seleccione</option>
                     <option value="cedulaCiudadania">Cedula de Ciudadania</option>
                     <option value="tarjetaIdentidad">Tarjeta de Identidad</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Numero de documento</label>
-                <input formControlName="numeroDocumento" type="text" name="numeroDocumento" id="numeroDocumento" class="form-control">
+                <input formControlName="identityCard" type="text" name="numeroDocumento" id="numeroDocumento" class="form-control">
                 @if (numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched )) {
                     <div class="text-danger">
                         <div>El tipo de numero de documento es requerido.</div>
@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Nombres: </label>
-                <input formControlName="nombres" type="text" name="name" id="name" class="form-control">
+                <input formControlName="name" type="text" name="name" id="name" class="form-control">
                 @if (nombres.invalid && (nombres.dirty || nombres.touched )) {
                     <div class="text-danger">
                         <div>El nombre es requerido.</div>
@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Apellidos: </label>
-                <input formControlName="apellidos" type="text" name="lastname" id="lastname" class="form-control">
+                <input formControlName="lastname" type="text" name="lastname" id="lastname" class="form-control">
                 @if (apellidos.invalid && (apellidos.dirty || apellidos.touched )) {
                     <div class="text-danger">
                         <div>El apellido es requerido.</div>
@@ -55,8 +55,8 @@
                 <label for="" class="form-label">Tipo de servicio: </label>
                 <select formControlName="tipoServicio" name="tipoServicio" id="tipoServicio" class="form-control">
                     <option value="">Seleccione</option>
-                    <option value="citaEspecialisa">Cita con especialista</option>
-                    <option value="citaEspecialisa">Programacion de cirugia</option>
+                    <option value="citaEspecialista">Cita con especialista</option>
+                    <option value="programacionCirugia">Programacion de cirugia</option>
                 </select>
                 @if (tipoServicio.invalid && (tipoServicio.dirty || tipoServicio.touched )) {
                     <div class="text-danger">
@@ -89,15 +89,8 @@
                 </div>
             </div>
             <div>
-                <input type="button" value="Generar Turno" class="btn btn-success" (click)="getPacienteByIdentityCard()">
+                <input type="button" value="Generar Turno" class="btn btn-success" (click)="crearPaciente()">
             </div>
         </form>
-        <div>
-            {{paciente.id}} <br>
-            {{paciente.identityCard}} <br>
-            {{paciente.name}} {{paciente.lastname}} <br>
-            {{paciente.category.categoryName}}
-
-        </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 .categoria {
     display: inline;
     margin-right: 2rem;
-    border-style: solid;
+    border-style: ridge;
+    border-color: greenyellow;
 }
