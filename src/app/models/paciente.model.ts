@@ -1,7 +1,7 @@
 import { Categoria } from "./categoria.model";
 
 export class Paciente {
-    id:number;
+    patientId:number;
     idType:string;
     identityCard:string | null;
     name:string;
@@ -10,7 +10,7 @@ export class Paciente {
     active:boolean;
 
     constructor() {
-        this.id = 0;
+        this.patientId = 0;
         this.idType = '';
         this.identityCard = '';
         this.name = '';

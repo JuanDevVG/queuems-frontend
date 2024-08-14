@@ -5,6 +5,7 @@ import { Paciente } from '../models/paciente.model';
 import { AuthService } from '../service/auth.service';
 import { Categoria } from '../models/categoria.model';
 import { Servicio } from '../models/servicio.model';
+import { Schedule } from '../models/schedule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,14 @@ export class PacienteService {
     );
   }
 
-  crearPaciente(paciente: any): Observable<any> {
+  crearPaciente(paciente: Paciente): Observable<any> {
     const headers: HttpHeaders = this.getHeaders();
-    console.log(paciente);
-
     return this.http.post<Paciente>(`http://localhost:8080/api/patients/create`, paciente, { headers })
+  }
+
+  updatePaciente(paciente: Paciente): Observable<any> {
+    const headers: HttpHeaders = this.getHeaders();
+    return this.http.put<Paciente>(`http://localhost:8080/api/patients/update`, paciente, { headers })
   }
 
   getCategorias(): Observable<any> {
@@ -37,11 +41,15 @@ export class PacienteService {
     return this.http.get<Servicio>(`http://localhost:8080/api/service/get`, { headers });
   }
 
+  generateTurno(schedule: Schedule): Observable<any> {
+    const headers: HttpHeaders = this.getHeaders();
+    return this.http.post<Schedule>(`http://localhost:8080/api/schedule/generate`, schedule , { headers });
+  }
 
   mapToPaciente(apiResponse: any): Paciente {
 
     return {
-      id: apiResponse.newObject.patientId,
+      patientId: apiResponse.newObject.patientId,
       idType: apiResponse.newObject.idType,
       identityCard: apiResponse.newObject.identityCard,
       name: apiResponse.newObject.name,

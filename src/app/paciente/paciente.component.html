@@ -56,7 +56,7 @@
                 <label for="" class="form-label">Tipo de servicio: </label>
                 
                 <select formControlName="tipoServicio" name="tipoServicio" id="tipoServicio" class="form-control">
-                    <option value="">Seleccione</option>
+                    <option value="" disabled selected>Seleccione</option>
                     @for(servicio of servicios; track servicio.serviceId) {
                     <option value="{{servicio.serviceType}}">{{servicio.serviceDescription}}</option>
                     }
@@ -72,7 +72,7 @@
                 <p><span style="font-weight: bold;">Categoria</span><p>
                 @for(categoria of categorias; track categoria.categoryId) {
                 <div class="categoria">
-                    <input type="radio" id={{categoria.categoryId}} formControlName="category" [value]="categoria.categoryId">
+                    <input type="radio" id={{categoria.categoryId}} formControlName="category" [value]=categoria.categoryId>
                     <label for="{{categoria.categoryId}}" class="form-label">
                         {{categoria.categoryDescription}}
                         <img src="#" alt="Img Adulto Mayor">
