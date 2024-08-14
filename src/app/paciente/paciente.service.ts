@@ -11,8 +11,6 @@ import { Servicio } from '../models/servicio.model';
 })
 export class PacienteService {
 
-  paciente: Paciente = new Paciente();
-
   constructor(private http: HttpClient, private authservice: AuthService) { }
 
   getPacienteByIdentityCard(cedula: string): Observable<Paciente> {
@@ -22,7 +20,7 @@ export class PacienteService {
     );
   }
 
-  crearPaciente(paciente: Paciente): Observable<any> {
+  crearPaciente(paciente: any): Observable<any> {
     const headers: HttpHeaders = this.getHeaders();
     console.log(paciente);
 
@@ -81,6 +79,6 @@ export class PacienteService {
       'Authorization': `Bearer ${token.token}`
     });
 
-    return headers;
+    return headers; 
   }
 }

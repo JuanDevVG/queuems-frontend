@@ -72,8 +72,8 @@
                 <p><span style="font-weight: bold;">Categoria</span><p>
                 @for(categoria of categorias; track categoria.categoryId) {
                 <div class="categoria">
-                    <input type="radio" id="adultoMayor" formControlName="category" value="{{categoria.categoryName}}">
-                    <label for="{{categoria.categoryName}}" class="form-label">
+                    <input type="radio" id={{categoria.categoryId}} formControlName="category" [value]="categoria.categoryId">
+                    <label for="{{categoria.categoryId}}" class="form-label">
                         {{categoria.categoryDescription}}
                         <img src="#" alt="Img Adulto Mayor">
                     </label>

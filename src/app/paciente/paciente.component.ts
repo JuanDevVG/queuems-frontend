@@ -8,6 +8,7 @@ import { Paciente } from '../models/paciente.model';
 import { Categoria } from '../models/categoria.model';
 import { TipoDocumento } from '../models/tipoDocumento';
 import { Servicio } from '../models/servicio.model';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
     name:['', [Validators.required]],
     lastname:['', [Validators.required]],
     tipoServicio:['', [Validators.required]],
-    category:['', [Validators.required]]
+    category:[0 , [Validators.required]]
   })
 
   get tipoDocumento(){
@@ -115,14 +116,14 @@ export class PacienteComponent implements OnInit, OnDestroy {
     this.pacienteService.getPacienteByIdentityCard(identityCard).subscribe({
       next: (apiResponse) => {
         this.paciente = apiResponse;
-
+        console.log(this.paciente)
         this.pacienteForm.patchValue({
           idType: this.paciente.idType,
           name: this.paciente.name,
           lastname: this.paciente.lastname,
-          category: this.paciente.category.categoryName
+          category: this.paciente.category.categoryId
         })
-
+        console.log(this.categoria)
       },
       error: () => {
         this.resetearFormularioParcial();
@@ -134,7 +135,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
     this.pacienteForm.patchValue({
       name: "",
       lastname: "",
-      category: "",
+      category: 0,
       tipoServicio: ""
     })
   }
@@ -156,13 +157,26 @@ export class PacienteComponent implements OnInit, OnDestroy {
   crearPaciente(): void {
 
     if (this.pacienteForm.valid) {
+      const datosForm = this.pacienteForm.value;
+      
+      //Alistar datos de paciente a enviar
+      const categoria: Categoria = {
+        categoryId: Number(datosForm.category) ?? 0,
+        categoryName: '',
+        categoryDescription: '',
+        active: true
+      }
+      this.paciente.idType = datosForm.idType ?? '';
+      this.paciente.identityCard = datosForm.identityCard ?? '';
+      this.paciente.name = datosForm.name ?? '';
+      this.paciente.lastname = datosForm.lastname ?? '';
+      this.paciente.category = categoria ??  {};
 
-      /*this.pacienteService.crearPaciente(this.pacienteForm.value as Paciente).subscribe({
+      this.pacienteService.crearPaciente(this.paciente).subscribe({
         next: (response: HttpResponse<any>) => {
           console.log(response.status);
-          
         }
-      });*/
+      });
     }
   }
 
